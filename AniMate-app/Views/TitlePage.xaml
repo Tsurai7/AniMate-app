@@ -1,17 +1,15 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:controls="clr-namespace:MediaControls.Controls;assembly=MediaControls"
              xmlns:local="clr-namespace:AniMate_app.ViewModels"
              xmlns:DTO="clr-namespace:AniMate_app.Services.AnilibriaService.Dtos"
              xmlns:models="clr-namespace:AniMate_app.Services.AnilibriaService.Models"
              x:DataType="local:TitleViewModel"
              x:Class="AniMate_app.Views.TitlePage"
-              >
+             Loaded="ContentPage_NavigatedTo">
 
     <ScrollView>
         <StackLayout Orientation="Vertical">
             
-
             <Image Source="{Binding Title.Posters.Small.Url}"/>
             
             <Label Text="{Binding Title.Names.Ru}"
@@ -145,7 +143,7 @@
                VerticalOptions="Center"
                Margin="0,10,0,0"/>
 
-            <CollectionView ItemsSource="{Binding Title.Player.Episodes.Values}">
+            <CollectionView x:Name="episodeCollectionView" ItemsSource="{Binding Title.Player.Episodes.Values}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="4" />
                 </CollectionView.ItemsLayout>
@@ -157,8 +155,7 @@
                                 BackgroundColor= "Grey"
                                 CornerRadius="10"
                                 Margin="5,5,5,5"
-                                FontSize="12"
-                                >
+                                FontSize="12">
                             
                         </Button>
                     </DataTemplate>

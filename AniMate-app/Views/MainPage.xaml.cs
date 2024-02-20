@@ -1,5 +1,4 @@
 ﻿using AniMate_app.Model;
-using AniMate_app.Services.AnilibriaService.Models;
 using AniMate_app.ViewModels;
 
 namespace AniMate_app.Views

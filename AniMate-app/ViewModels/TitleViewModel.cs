@@ -5,7 +5,7 @@ namespace AniMate_app.ViewModels
     [QueryProperty(nameof(Title), "TheTitle")]
     public partial class TitleViewModel : ObservableObject
     {
-        private Title _title;
+        public Title _title;
         public Title Title
         {
             get => _title;
@@ -19,9 +19,22 @@ namespace AniMate_app.ViewModels
         }
 
         [ObservableProperty]
+        private List<Episode> _episodeButtons = new();
+
+        [ObservableProperty]
         private string _genres;
 
         [ObservableProperty]
         private string _shortDescription;
+
+        public async Task CreateEpisodeButtons()
+        {
+            EpisodeButtons.Clear();
+
+            foreach(var episode in Title.Player.Episodes.Values)
+            {
+                EpisodeButtons.Add(episode);              
+            }
+        }
     }
 }

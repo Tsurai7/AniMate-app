@@ -22,8 +22,7 @@ public partial class TitlePage : ContentPage
         {
             await Shell.Current.GoToAsync($"playerpage?mediaurl={hlsUrl}" );
             //await Navigation.PushAsync(new PlayerPage(hlsUrl));
-        }
-        
+        }     
     }
 
     private void OnTextRecognizerTap(object sender, TappedEventArgs e)
@@ -34,18 +33,19 @@ public partial class TitlePage : ContentPage
         {
             formattedString.Spans.Add(new Span
             {
-                Text = viewModel.ShortDescription,
-                
+                Text = viewModel.ShortDescription,               
             });
+
             formattedString.Spans.Add(new Span
             {
                 Text = "... ещё",
-                TextColor = Colors.Grey,
-                
+                TextColor = Colors.Grey,             
             });
+
             descriptionLabel.FormattedText = formattedString;
             isFullDescriptionOpen= false;
         }
+
         else
         {
             formattedString.Spans.Add(new Span
@@ -53,11 +53,15 @@ public partial class TitlePage : ContentPage
                 Text = viewModel.Title.RuDescription,
                 FontSize = 15,
 
-            }); ;
+            });
+            
             descriptionLabel.FormattedText = formattedString;
             isFullDescriptionOpen= true;
-        }
-        
+        }      
+    }
 
+    private async void ContentPage_NavigatedTo(object sender, EventArgs e)
+    {
+        await viewModel.CreateEpisodeButtons();
     }
 }

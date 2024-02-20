@@ -4,6 +4,14 @@ namespace AniMate_app.Services.AnilibriaService.Models
 {
     public record Episode
     {
+        private const string _url = "https://www.anilibria.tv";
+
+        [JsonConstructor]
+        public Episode(string preview)
+        {
+            Preview = $"{_url}{preview}";
+        }
+
         [JsonProperty("episode")]
         public string Ordinal { get; set; }
 
@@ -12,6 +20,12 @@ namespace AniMate_app.Services.AnilibriaService.Models
 
         [JsonProperty("hls")]
         public Hls HlsUrls { get; set; }
+
+        [JsonProperty("created_timestamp")]
+        public int CreatedTimestamp { get; set; }
+
+        [JsonProperty("preview")]
+        public string Preview { get; set; }
     }
 
     public record Hls

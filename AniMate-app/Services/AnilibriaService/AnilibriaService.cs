@@ -21,6 +21,7 @@ namespace AniMate_app.Services.AnilibriaService
             return title;
         }
 
+
         public async Task<List<Title>> GetTitlesByName(string name, int skip = 0, int count = 6)
         {
             using HttpResponseMessage response = await _client.GetAsync($"""{_url}title/search?search={name}&order_by=in_favorites&sort_direction=1&{(skip > 0 ? $"&after={skip}" : "")}&limit={skip + count}""");
@@ -31,6 +32,7 @@ namespace AniMate_app.Services.AnilibriaService
 
             return titles;
         }
+
 
         public async Task<List<Title>> GetUpdates(int skip = 0, int count = 6)
         {
@@ -43,6 +45,7 @@ namespace AniMate_app.Services.AnilibriaService
             return titles;
         }
 
+
         public async Task<List<string>> GetAllGenres()
         {
             using HttpResponseMessage response = await _client.GetAsync($"{_url}genres");
@@ -54,6 +57,7 @@ namespace AniMate_app.Services.AnilibriaService
             return genres;
         }
 
+
         public async Task<List<Title>> GetTitlesByGenre(string genre, int skip = 0, int count = 1)
         {
             using HttpResponseMessage response =
@@ -63,6 +67,7 @@ namespace AniMate_app.Services.AnilibriaService
 
             return JsonConvert.DeserializeObject<TitlesInfo>(jsonInfo).Titles;
         }
+
 
         public async Task<List<Title>> GetTitlesByUpdate(int skip = 0, int count = 1)
         {
