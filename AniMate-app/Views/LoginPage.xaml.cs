@@ -9,8 +9,7 @@ public partial class LoginPage : ContentPage
 	}
 
     private async void LoginButton_Clicked(object sender, EventArgs e)
-    {
-        
+    {   
         await Shell.Current.GoToAsync($"profilepage");
     }
 
@@ -26,8 +25,7 @@ public partial class LoginPage : ContentPage
 
     private void passwordEntry_Focused(object sender, FocusEventArgs e)
     {
-        passwordFrame.BorderColor = Colors.Blue;
-        
+        passwordFrame.BorderColor = Colors.Blue;        
     }
 
     private void passwordEntry_Unfocused(object sender, FocusEventArgs e)
