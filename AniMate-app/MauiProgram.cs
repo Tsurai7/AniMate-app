@@ -31,6 +31,25 @@ namespace AniMate_app
         private static void ConfigureServices(IServiceCollection services)
         {
             // Service configuration
+            services.AddSingleton<IPlatformHttpMessageHandler>(sp =>
+            {
+#if ANDROID
+                return new AndroidHttpMessageHandler();
+#else
+                return null!;
+#endif
+            });
+
+            services.AddHttpClient("custom-httpclient", httpClient =>
+            {
+                var baseAddress = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7231" : "https://localhost:7231";
+                httpClient.BaseAddress = new Uri(baseAddress);
+            }).ConfigureHttpMessageHandlerBuilder(configBuilder =>
+            {
+                var platformMessageHandler = configBuilder.Services.GetRequiredService<IPlatformHttpMessageHandler>();
+                configBuilder.PrimaryHandler = platformMessageHandler.GetHttpMessageHandler();
+            });
+
             services.AddHttpClient<AnilibriaService>();
 
             // Pages configuration
