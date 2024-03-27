@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.Net.Security;
+using Xamarin.Android.Net;
 
-namespace AniMate_app.Platforms.Android
+namespace AniMate_app
 {
-    internal class AndroidHttpMessageHandler
+    public class AndroidHttpMessageHandler : IPlatformHttpMessageHandler
     {
+        public HttpMessageHandler GetHttpMessageHandler() => new AndroidMessageHandler
+        {
+            ServerCertificateCustomValidationCallback = (httpRequestMessage, certificate, chain, sslPolicyErrors) =>
+            certificate?.Issuer == "CN=localhost" || sslPolicyErrors == SslPolicyErrors.None
+        };
     }
 }

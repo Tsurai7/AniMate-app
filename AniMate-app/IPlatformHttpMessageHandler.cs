@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AniMate_app
+﻿namespace AniMate_app
 {
-    internal interface IPlatformHttpMessageHandler
+    public interface IPlatformHttpMessageHandler
     {
+        HttpMessageHandler GetHttpMessageHandler();
     }
 }
