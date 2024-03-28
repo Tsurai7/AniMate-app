@@ -42,5 +42,17 @@ namespace AniMate_app.Services.UsersService
                 await SecureStorage.Default.SetAsync("Authentication", serializeResponse);
             }
         }
+
+        public async Task<WeatherForecast[]> GetWeatherForeCastData()
+        {
+            var serializedLoginResponseInStorage = await SecureStorage.Default.GetAsync("Authentication");
+            if (serializedLoginResponseInStorage is null) return null!;
+
+            string token = JsonSerializer.Deserialize<LoginResponse>(serializedLoginResponseInStorage)!.AccessToken!;
+            var httpClient = httpClientFactory.CreateClient("custom-httpclient");
+            httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            var result = await httpClient.GetFromJsonAsync<WeatherForecast[]>("/WeatherForecast");
+            return result!;
+        }
     }
 }
